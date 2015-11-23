@@ -627,6 +627,7 @@ def find(specifier, condition, settings=None, random=None, storage=None):
     def template_condition(data):
         try:
             result = data.draw(search)
+            data.note(result)
             success = condition(result)
         except UnsatisfiedAssumption:
             data.mark_invalid()
@@ -651,7 +652,6 @@ def find(specifier, condition, settings=None, random=None, storage=None):
                         ))
                 last_data[0] = data
         if success:
-            data.note(result)
             data.mark_interesting()
     from hypothesis.internal.conjecture.engine import TestRunner
     from hypothesis.internal.conjecture.data import TestData
